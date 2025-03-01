@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:telepass_courses/routes.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MainApp());
 }
 
@@ -9,12 +11,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
+    return MaterialApp(
+      theme: ThemeData(
+        appBarTheme: const AppBarTheme(toolbarHeight: 75),
+        iconTheme: const IconThemeData(size: 22),
       ),
+      routes: Routes.routes,
+      initialRoute: Routes.routeLogin,
     );
   }
 }

@@ -1,1 +1,7 @@
 include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    - prefer_const_constructors
+    - unnecessary_const
+    - prefer_const_constructors_in_immutables
