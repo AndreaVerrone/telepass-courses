@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:telepass_courses/constants.dart';
 import 'package:telepass_courses/routes.dart';
 import 'package:telepass_courses/services/auth_handler.dart';
@@ -29,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     registerRecognizer.onTap = () {
-      Navigator.pushReplacementNamed(context, Routes.routeRegister);
+      Navigator.pushNamed(context, Routes.routeRegister);
     };
     super.initState();
   }
@@ -121,38 +122,18 @@ class _LoginPageState extends State<LoginPage> {
                   child: SizedBox(
                     width: 300,
                     child: FilledButton(
-                      style: ButtonStyle(
-                        backgroundColor: WidgetStateColor.fromMap({
-                          WidgetState.disabled: Colors.grey[700]!,
-                          WidgetState.hovered: primaryColorDark,
-                          WidgetState.any: primaryColor,
-                        }),
-                      ),
                       onPressed:
                           isLoginDisabled
                               ? null
                               : () async {
-                                errorText = await AuthHandler.login(
-                                  email,
-                                  password,
-                                );
-                                if (errorText == null && context.mounted) {
-                                  Navigator.pushReplacementNamed(
-                                    context,
-                                    Routes.routeHome,
-                                  );
-                                } else {
+                                errorText = await context
+                                    .read<AuthHandler>()
+                                    .login(email, password);
+                                if (errorText != null && context.mounted) {
                                   setState(() {});
                                 }
                               },
-                      child: const Text(
-                        "Accedi",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: const Text("Accedi"),
                     ),
                   ),
                 ),

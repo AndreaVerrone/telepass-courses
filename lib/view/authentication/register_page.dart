@@ -1,12 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:telepass_courses/constants.dart';
-import 'package:telepass_courses/routes.dart';
 import 'package:telepass_courses/services/auth_handler.dart';
 import 'package:telepass_courses/view/authentication/accept_conditions.dart';
-import 'package:telepass_courses/view/components/outlined_text_field.dart';
 import 'package:telepass_courses/view/components/footer.dart';
+import 'package:telepass_courses/view/components/outlined_text_field.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -35,7 +35,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   void initState() {
     loginRecognizer.onTap = () {
-      Navigator.pushReplacementNamed(context, Routes.routeLogin);
+      Navigator.pop(context);
     };
     super.initState();
   }
@@ -117,39 +117,22 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: SizedBox(
                     width: 300,
                     child: FilledButton(
-                      style: ButtonStyle(
-                        backgroundColor: WidgetStateColor.fromMap({
-                          WidgetState.disabled: Colors.grey[700]!,
-                          WidgetState.hovered: primaryColorDark,
-                          WidgetState.any: primaryColor,
-                        }),
-                      ),
                       onPressed:
                           isLoginDisabled
                               ? null
                               : () async {
-                                errorText = await AuthHandler.register(
-                                  email,
-                                  password,
-                                  repeatedPassword,
-                                );
-                                if (errorText == null && context.mounted) {
-                                  Navigator.pushReplacementNamed(
-                                    context,
-                                    Routes.routeHome,
-                                  );
-                                } else {
+                                errorText = await context
+                                    .read<AuthHandler>()
+                                    .register(
+                                      email,
+                                      password,
+                                      repeatedPassword,
+                                    );
+                                if (errorText != null && context.mounted) {
                                   setState(() {});
                                 }
                               },
-                      child: const Text(
-                        "Registrati",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: const Text("Registrati"),
                     ),
                   ),
                 ),
