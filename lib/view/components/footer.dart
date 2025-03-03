@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:telepass_courses/constants.dart';
+import 'package:telepass_courses/view/components/separator.dart';
 
 class Footer extends StatelessWidget {
   const Footer({super.key});
@@ -21,12 +22,12 @@ class Footer extends StatelessWidget {
       child: Column(
         children: [
           SvgPicture.asset("assets/telepass_logo.svg", height: 20),
-          const SizedBox(height: 16),
-          Text(
+          const Separator(16),
+          const Text(
             "Sede legale: via Laurentina, 449 - 00142 Roma (RM)",
             style: _textStyle,
           ),
-          Text(
+          const Text(
             "P.IVA 09771701001 - Certificato ISO9001 e ISO27001",
             style: _textStyle,
           ),

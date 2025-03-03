@@ -3,8 +3,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthHandler extends ChangeNotifier {
   bool _isLoggedIn = false;
+  String _username = '';
 
   bool get isLoggedIn => _isLoggedIn;
+  String get username => _username;
 
   Future<String?> login(String username, String password) async {
     final prefs = await SharedPreferences.getInstance();
@@ -13,6 +15,7 @@ class AuthHandler extends ChangeNotifier {
       return "Username o password non validi";
     }
     _isLoggedIn = true;
+    _username = username;
     notifyListeners();
     return null;
   }
@@ -32,6 +35,7 @@ class AuthHandler extends ChangeNotifier {
     }
     prefs.setString(username, password);
     _isLoggedIn = true;
+    _username = username;
     notifyListeners();
     return null;
   }

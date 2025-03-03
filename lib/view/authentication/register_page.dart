@@ -7,6 +7,7 @@ import 'package:telepass_courses/services/auth_handler.dart';
 import 'package:telepass_courses/view/authentication/accept_conditions.dart';
 import 'package:telepass_courses/view/components/footer.dart';
 import 'package:telepass_courses/view/components/outlined_text_field.dart';
+import 'package:telepass_courses/view/components/separator.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -69,9 +70,13 @@ class _RegisterPageState extends State<RegisterPage> {
                   "Inserisci le tue credenziali\nper creare il tuo account",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 32),
-                if (errorText != null)
+                const Separator(32),
+                if (errorText != null) ...[
                   Text(errorText!, style: const TextStyle(color: Colors.red)),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                ],
                 OutlinedTextField(
                   labelText: "Email",
                   initialText: email,
@@ -81,7 +86,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     });
                   },
                 ),
-                const SizedBox(height: 16),
+                const Separator(16),
                 OutlinedTextField(
                   labelText: "Pasword",
                   obscureText: true,
@@ -92,7 +97,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     });
                   },
                 ),
-                const SizedBox(height: 16),
+                const Separator(16),
                 OutlinedTextField(
                   labelText: "Ripeti la Pasword",
                   obscureText: true,
@@ -103,7 +108,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     });
                   },
                 ),
-                const SizedBox(height: 24),
+                const Separator(24),
                 AcceptConditions(
                   value: conditionsAccepted,
                   onChanged: (newValue) {
@@ -112,31 +117,29 @@ class _RegisterPageState extends State<RegisterPage> {
                     });
                   },
                 ),
-                const SizedBox(height: 32),
+                const Separator(32),
                 Center(
                   child: SizedBox(
                     width: 300,
                     child: FilledButton(
-                      onPressed:
-                          isLoginDisabled
-                              ? null
-                              : () async {
-                                errorText = await context
-                                    .read<AuthHandler>()
-                                    .register(
-                                      email,
-                                      password,
-                                      repeatedPassword,
-                                    );
-                                if (errorText != null && context.mounted) {
-                                  setState(() {});
-                                }
-                              },
+                      onPressed: isLoginDisabled
+                          ? null
+                          : () async {
+                              errorText =
+                                  await context.read<AuthHandler>().register(
+                                        email,
+                                        password,
+                                        repeatedPassword,
+                                      );
+                              if (errorText != null && context.mounted) {
+                                setState(() {});
+                              }
+                            },
                       child: const Text("Registrati"),
                     ),
                   ),
                 ),
-                const SizedBox(height: 32),
+                const Separator(32),
                 Center(
                   child: Text.rich(
                     TextSpan(

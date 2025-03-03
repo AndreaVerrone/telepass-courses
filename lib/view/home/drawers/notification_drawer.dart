@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:telepass_courses/constants.dart';
 import 'package:telepass_courses/extensions.dart';
 import 'package:telepass_courses/services/notification_service.dart';
+import 'package:telepass_courses/view/components/separator.dart';
 
 class NotificationDrawer extends StatelessWidget {
   const NotificationDrawer({super.key});
@@ -23,7 +24,7 @@ class NotificationDrawer extends StatelessWidget {
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
         ),
-        const SizedBox(height: 32),
+        const Separator(32),
         Expanded(
           child: ListView(
             children: [
@@ -39,9 +40,9 @@ class NotificationDrawer extends StatelessWidget {
                   padding: _horizontalPadding,
                 ),
               if (weeklyyNotifications.isNotEmpty) ...[
-                const SizedBox(height: 40),
+                const Separator(40),
                 const Divider(color: primaryColor),
-                const SizedBox(height: 40),
+                const Separator(40),
                 NotificationListTile(
                   title: "Questa settimana",
                   notifications: weeklyyNotifications,
@@ -75,12 +76,12 @@ class NotificationTile extends StatelessWidget {
                   color: notification.type.titleColor,
                 ),
               ),
-              const SizedBox(height: 4),
+              const Separator(4),
               Text(notification.description),
             ],
           ),
         ),
-        const SizedBox(width: 12),
+        const Separator(12),
         const Icon(Icons.arrow_forward_ios_rounded),
       ],
     );
@@ -110,13 +111,13 @@ class NotificationListTile extends StatelessWidget {
             title,
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 20),
+          const Separator(20),
           ...notifications
               .map<Widget>(
                 (notification) => NotificationTile(notification: notification),
               )
               .interleave(const Divider(color: primaryColor))
-              .interleave(const SizedBox(height: 8)),
+              .interleave(const Separator(8)),
         ],
       ),
     );

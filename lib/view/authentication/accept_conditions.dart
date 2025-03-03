@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:telepass_courses/constants.dart';
+import 'package:telepass_courses/view/components/separator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AcceptConditions extends StatefulWidget {
@@ -48,7 +49,7 @@ class _AcceptConditionsState extends State<AcceptConditions> {
           ),
           onChanged: (value) => widget.onChanged(value ?? false),
         ),
-        const SizedBox(width: 8),
+        const Separator(8),
         Expanded(
           child: Text.rich(
             TextSpan(

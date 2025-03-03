@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:telepass_courses/constants.dart';
+import 'package:telepass_courses/view/components/separator.dart';
 
 class OutlinedTextField extends StatefulWidget {
   final String labelText;
@@ -53,7 +54,7 @@ class _OutlinedTextFieldState extends State<OutlinedTextField> {
                     fontWeight: FontWeight.w300,
                   ),
                 ),
-                const SizedBox(height: 8),
+                const Separator(8),
                 TextField(
                   decoration: const InputDecoration(
                     border: InputBorder.none,
@@ -79,7 +80,7 @@ class _OutlinedTextFieldState extends State<OutlinedTextField> {
             ),
           ),
           if (textController.text.isNotEmpty) ...[
-            const SizedBox(width: 16),
+            const Separator(16),
             const Icon(Icons.check_circle_outline_rounded, color: Colors.green),
           ],
         ],

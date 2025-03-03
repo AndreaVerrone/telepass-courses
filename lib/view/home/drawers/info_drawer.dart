@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:telepass_courses/constants.dart';
 import 'package:telepass_courses/services/faq_service.dart';
+import 'package:telepass_courses/view/components/separator.dart';
 
 class InfoDrawer extends StatelessWidget {
   final List<FaqEntry> faqs;
@@ -17,7 +18,7 @@ class InfoDrawer extends StatelessWidget {
             "FAQ",
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 32),
+          const Separator(32),
           Expanded(
             child: ListView.separated(
               itemBuilder: (context, index) {
@@ -45,14 +46,14 @@ class InfoDrawer extends StatelessWidget {
                   children: [Text(faq.description)],
                 );
               },
-              separatorBuilder: (context, index) => const SizedBox(height: 16),
+              separatorBuilder: (context, index) => const Separator(16),
               itemCount: faqs.length,
             ),
           ),
           const Divider(color: primaryColor),
-          const SizedBox(height: 24),
+          const Separator(24),
           const Text("Non hai trovato quello che cercavi?"),
-          const SizedBox(height: 16),
+          const Separator(16),
           FilledButton(
             onPressed: () {},
             child: const Align(child: Text("Contattaci")),

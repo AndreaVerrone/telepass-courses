@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:telepass_courses/constants.dart';
+import 'package:telepass_courses/view/components/separator.dart';
 import 'package:telepass_courses/view/home/custom_tab_bar/tab_indicator.dart';
 
 class CustomTabBar extends StatefulWidget {
@@ -49,49 +50,46 @@ class _CustomTabBarState extends State<CustomTabBar> {
                 tag: appBarLogoHeroTag,
                 child: SvgPicture.asset("assets/telepass_logo.svg", height: 40),
               ),
-              const SizedBox(width: 12),
+              const Separator(12),
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children:
-                      widget.tabIndicators
-                          .asMap()
-                          .map(
-                            (index, value) => MapEntry(
-                              index,
-
-                              MouseRegion(
-                                cursor: SystemMouseCursors.click,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    widget.tabController.animateTo(index);
-                                  },
-
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 8,
-                                      horizontal: 12,
-                                    ),
-                                    child: TabIndicator(
-                                      isSelected:
-                                          index == widget.tabController.index,
-                                      tabIndicatorData: value,
-                                    ),
-                                  ),
+                  children: widget.tabIndicators
+                      .asMap()
+                      .map(
+                        (index, value) => MapEntry(
+                          index,
+                          MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: GestureDetector(
+                              onTap: () {
+                                widget.tabController.animateTo(index);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 8,
+                                  horizontal: 12,
+                                ),
+                                child: TabIndicator(
+                                  isSelected:
+                                      index == widget.tabController.index,
+                                  tabIndicatorData: value,
                                 ),
                               ),
                             ),
-                          )
-                          .values
-                          .toList(),
+                          ),
+                        ),
+                      )
+                      .values
+                      .toList(),
                 ),
               ),
-              const SizedBox(width: 12),
+              const Separator(12),
               IconButton(
                 onPressed: widget.onInfoPressed,
                 icon: const Icon(Icons.info_outline_rounded),
               ),
-              const SizedBox(width: 36),
+              const Separator(36),
               IconButton(
                 onPressed: widget.onNotificationPressed,
                 icon: const Icon(Icons.notifications_none_rounded),
@@ -101,8 +99,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
         ),
         Expanded(
           child: AnimatedBuilder(
-            animation:
-                widget.tabController.animation ??
+            animation: widget.tabController.animation ??
                 AlwaysStoppedAnimation(widget.tabController.index),
             builder: (context, child) {
               double opacity = 1;
@@ -117,8 +114,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
               }
               return Opacity(opacity: opacity, child: child);
             },
-            child:
-                widget.pages.elementAtOrNull(widget.tabController.index) ??
+            child: widget.pages.elementAtOrNull(widget.tabController.index) ??
                 const Placeholder(
                   fallbackWidth: double.infinity,
                   fallbackHeight: double.infinity,

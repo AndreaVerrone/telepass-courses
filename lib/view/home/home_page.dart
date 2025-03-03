@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:telepass_courses/constants.dart';
 import 'package:telepass_courses/services/faq_service.dart';
+import 'package:telepass_courses/services/reel_service.dart';
+import 'package:telepass_courses/view/components/separator.dart';
+import 'package:telepass_courses/view/courses/courses_page.dart';
 import 'package:telepass_courses/view/home/custom_tab_bar/custom_tab_bar.dart';
 import 'package:telepass_courses/view/home/custom_tab_bar/tab_indicator.dart';
 import 'package:telepass_courses/view/home/drawers/info_drawer.dart';
 import 'package:telepass_courses/view/home/drawers/notification_drawer.dart';
+import 'package:telepass_courses/view/home/main_page.dart';
 import 'package:telepass_courses/view/profile/profile_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,6 +20,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final double baseHorizontalPadding = 200;
 
   final tabs = [
     TabIndicatorData(icon: Icons.home_outlined, text: "Home"),
@@ -58,7 +63,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   color: primaryColor,
                 ),
               ),
-              const SizedBox(height: 8),
+              const Separator(8),
               Expanded(child: drawerToShow),
             ],
           ),
@@ -67,7 +72,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       body: CustomTabBar(
         tabIndicators: tabs,
         tabController: tabController,
-        horizontalPadding: 200,
+        horizontalPadding: baseHorizontalPadding,
         onInfoPressed: () {
           final faqs = FaqService().getFaqs();
           setState(() {
@@ -81,7 +86,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           });
           scaffoldKey.currentState?.openEndDrawer();
         },
-        pages: [ProfilePage()],
+        pages: [
+          MainPage(
+            horizontalPadding: baseHorizontalPadding,
+            reels: ReelService().getReels(),
+          ),
+          CoursesPage(horizontalPadding: baseHorizontalPadding),
+          ProfilePage(),
+        ],
       ),
     );
   }
