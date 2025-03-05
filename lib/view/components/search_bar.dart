@@ -18,32 +18,32 @@ class CustomSearchBar extends StatelessWidget {
     return Container(
       width: double.infinity,
       color: primaryColor,
-      padding:
-          EdgeInsets.symmetric(vertical: 16, horizontal: horizontalPadding),
+      padding: EdgeInsets.symmetric(
+        vertical: 16,
+        horizontal: horizontalPadding,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             title,
             style: const TextStyle(
-                fontSize: 26, fontWeight: FontWeight.bold, color: Colors.white),
+              fontSize: 26,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
-          const Separator(
-            8,
-          ),
+          const Separator(8),
           Container(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8), color: Colors.white),
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.white,
+            ),
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
             child: Row(
               children: [
-                const Icon(
-                  Icons.search_rounded,
-                  color: Colors.grey,
-                ),
-                const Separator(
-                  8,
-                ),
+                const Icon(Icons.search_rounded, color: Colors.grey),
+                const Separator(8),
                 Expanded(
                   child: TextField(
                     onSubmitted: (value) {
@@ -61,7 +61,7 @@ class CustomSearchBar extends StatelessWidget {
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

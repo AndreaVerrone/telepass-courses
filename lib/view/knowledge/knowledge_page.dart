@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:telepass_courses/constants.dart';
-import 'package:telepass_courses/services/course_service.dart';
+import 'package:telepass_courses/services/knowledge_service.dart';
 import 'package:telepass_courses/view/components/footer.dart';
 import 'package:telepass_courses/view/components/search_bar.dart';
 import 'package:telepass_courses/view/components/separator.dart';
-import 'package:telepass_courses/view/courses/course_card.dart';
+import 'package:telepass_courses/view/knowledge/knowledge_card.dart';
 
-class CoursesPage extends StatefulWidget {
+class KnowledgePage extends StatefulWidget {
   final double horizontalPadding;
-  const CoursesPage({super.key, required this.horizontalPadding});
+  const KnowledgePage({super.key, required this.horizontalPadding});
 
   @override
-  State<CoursesPage> createState() => _CoursesPageState();
+  State<KnowledgePage> createState() => _KnowledgePageState();
 }
 
-class _CoursesPageState extends State<CoursesPage> {
-  final List<Course> allCourses = [];
-  List<Course> filteredCourses = [];
+class _KnowledgePageState extends State<KnowledgePage> {
+  final List<Knowledge> allKnowledges = [];
+  List<Knowledge> filteredKnowledges = [];
   final List<String> quickFilters = [
     "Mostra tutti",
     "Da completare",
@@ -32,17 +32,17 @@ class _CoursesPageState extends State<CoursesPage> {
 
   @override
   void initState() {
-    allCourses.addAll(CourseService().getCourses());
-    filteredCourses = _filterCourses();
+    allKnowledges.addAll(KnowledgeService().getKnowledges());
+    filteredKnowledges = _filterKnowledges();
     super.initState();
   }
 
-  List<Course> _filterCourses() {
-    if (filterText.isEmpty) return [...allCourses];
-    return allCourses
+  List<Knowledge> _filterKnowledges() {
+    if (filterText.isEmpty) return [...allKnowledges];
+    return allKnowledges
         .where(
-          (course) =>
-              course.title.toLowerCase().contains(filterText.toLowerCase()),
+          (knowledge) =>
+              knowledge.title.toLowerCase().contains(filterText.toLowerCase()),
         )
         .toList();
   }
@@ -52,7 +52,7 @@ class _CoursesPageState extends State<CoursesPage> {
     return Column(
       children: [
         CustomSearchBar(
-          title: "Corsi",
+          title: "Knowledge",
           horizontalPadding: widget.horizontalPadding,
           onSearchComplete: (searchString) {
             setState(() {
@@ -117,7 +117,7 @@ class _CoursesPageState extends State<CoursesPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      "Corsi",
+                      "Knowledge",
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
@@ -154,8 +154,10 @@ class _CoursesPageState extends State<CoursesPage> {
                   alignment: WrapAlignment.spaceBetween,
                   runSpacing: 16,
                   children:
-                      _filterCourses()
-                          .map((course) => CourseCard(course: course))
+                      _filterKnowledges()
+                          .map(
+                            (knowledge) => KnowledgeCard(knowledge: knowledge),
+                          )
                           .toList(),
                 ),
               ),

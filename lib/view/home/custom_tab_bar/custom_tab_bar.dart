@@ -54,34 +54,35 @@ class _CustomTabBarState extends State<CustomTabBar> {
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: widget.tabIndicators
-                      .asMap()
-                      .map(
-                        (index, value) => MapEntry(
-                          index,
-                          MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: GestureDetector(
-                              onTap: () {
-                                widget.tabController.animateTo(index);
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 8,
-                                  horizontal: 12,
-                                ),
-                                child: TabIndicator(
-                                  isSelected:
-                                      index == widget.tabController.index,
-                                  tabIndicatorData: value,
+                  children:
+                      widget.tabIndicators
+                          .asMap()
+                          .map(
+                            (index, value) => MapEntry(
+                              index,
+                              MouseRegion(
+                                cursor: SystemMouseCursors.click,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    widget.tabController.animateTo(index);
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 8,
+                                      horizontal: 12,
+                                    ),
+                                    child: TabIndicator(
+                                      isSelected:
+                                          index == widget.tabController.index,
+                                      tabIndicatorData: value,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                      )
-                      .values
-                      .toList(),
+                          )
+                          .values
+                          .toList(),
                 ),
               ),
               const Separator(12),
@@ -99,9 +100,13 @@ class _CustomTabBarState extends State<CustomTabBar> {
         ),
         Expanded(
           child: AnimatedBuilder(
-            animation: widget.tabController.animation ??
+            animation:
+                widget.tabController.animation ??
                 AlwaysStoppedAnimation(widget.tabController.index),
             builder: (context, child) {
+              if (!(widget.tabController.animation?.isAnimating ?? false)) {
+                return child!;
+              }
               double opacity = 1;
               int start = widget.tabController.previousIndex;
               int end = widget.tabController.index;
@@ -112,9 +117,18 @@ class _CustomTabBarState extends State<CustomTabBar> {
                   1.0,
                 );
               }
-              return Opacity(opacity: opacity, child: child);
+              final prevPage = widget.pages.elementAtOrNull(
+                widget.tabController.previousIndex,
+              );
+              return Stack(
+                children: [
+                  Opacity(opacity: 1 - opacity, child: prevPage),
+                  Opacity(opacity: opacity, child: child),
+                ],
+              );
             },
-            child: widget.pages.elementAtOrNull(widget.tabController.index) ??
+            child:
+                widget.pages.elementAtOrNull(widget.tabController.index) ??
                 const Placeholder(
                   fallbackWidth: double.infinity,
                   fallbackHeight: double.infinity,

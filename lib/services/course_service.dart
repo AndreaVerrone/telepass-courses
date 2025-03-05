@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:telepass_courses/services/auth_handler.dart';
 
 class Course {
@@ -52,38 +51,12 @@ final List<String> _courseNames = [
   "Metus erat tristique sapien, vel molestie elit.",
 ];
 
-class CourseService extends ChangeNotifier {
-  List<String> _savedCourses = [];
-
-  CourseService(BuildContext context) {
-    _fetchSavedCourses(context);
+class CourseService {
+  bool isSaved(Course course, BuildContext context) {
+    return context.read<AuthHandler>().savedCourses.contains(course.id);
   }
 
-  Future<void> _fetchSavedCourses(BuildContext context) async {
-    final username = context.read<AuthHandler>().username;
-    final prefs = await SharedPreferences.getInstance();
-    _savedCourses = prefs.getStringList(username) ?? [];
-    notifyListeners();
-  }
-
-  bool isSaved(Course course) {
-    return _savedCourses.contains(course.id);
-  }
-
-  Future<void> toggleSave(Course course, BuildContext context) async {
-    final username = context.read<AuthHandler>().username;
-    final prefs = await SharedPreferences.getInstance();
-    final prevSaved = prefs.getStringList(username) ?? [];
-    if (prevSaved.contains(course.id)) {
-      prevSaved.remove(course.id);
-    } else {
-      prevSaved.add(course.id);
-    }
-    await prefs.setStringList(username, prevSaved);
-    _fetchSavedCourses(context);
-  }
-
-  static List<Course> getCourses() {
+  List<Course> getCourses() {
     return List.generate(30, (index) {
       final courseName = _courseNames[index % _courseNames.length];
       final courseType =

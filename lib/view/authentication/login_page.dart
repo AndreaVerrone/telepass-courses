@@ -68,9 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                 const Separator(32),
                 if (errorText != null) ...[
                   Text(errorText!, style: const TextStyle(color: Colors.red)),
-                  const SizedBox(
-                    height: 16,
-                  ),
+                  const SizedBox(height: 16),
                 ],
                 OutlinedTextField(
                   labelText: "Email",
@@ -96,19 +94,12 @@ class _LoginPageState extends State<LoginPage> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
-                    onPressed: () {
-                      print("Not implemented yet");
-                    },
-                    style: const ButtonStyle(
-                      splashFactory: NoSplash.splashFactory,
-                      overlayColor: WidgetStatePropertyAll(Colors.transparent),
-                    ),
+                    onPressed: () {},
                     child: const Text(
                       "Password dimenticata?",
                       style: TextStyle(
                         decoration: TextDecoration.underline,
-                        color: primaryColor,
-                        decorationColor: primaryColor,
+                        fontSize: 14,
                       ),
                     ),
                   ),
@@ -127,16 +118,17 @@ class _LoginPageState extends State<LoginPage> {
                   child: SizedBox(
                     width: 300,
                     child: FilledButton(
-                      onPressed: isLoginDisabled
-                          ? null
-                          : () async {
-                              errorText = await context
-                                  .read<AuthHandler>()
-                                  .login(email, password);
-                              if (errorText != null && context.mounted) {
-                                setState(() {});
-                              }
-                            },
+                      onPressed:
+                          isLoginDisabled
+                              ? null
+                              : () async {
+                                errorText = await context
+                                    .read<AuthHandler>()
+                                    .login(email, password);
+                                if (errorText != null && context.mounted) {
+                                  setState(() {});
+                                }
+                              },
                       child: const Text("Accedi"),
                     ),
                   ),

@@ -9,6 +9,7 @@ import 'package:telepass_courses/view/home/custom_tab_bar/tab_indicator.dart';
 import 'package:telepass_courses/view/home/drawers/info_drawer.dart';
 import 'package:telepass_courses/view/home/drawers/notification_drawer.dart';
 import 'package:telepass_courses/view/home/main_page.dart';
+import 'package:telepass_courses/view/knowledge/knowledge_page.dart';
 import 'package:telepass_courses/view/profile/profile_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -31,6 +32,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late final TabController tabController = TabController(
     length: tabs.length,
     vsync: this,
+    animationDuration: const Duration(milliseconds: 500),
   );
 
   Widget drawerToShow = const SizedBox();
@@ -90,9 +92,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           MainPage(
             horizontalPadding: baseHorizontalPadding,
             reels: ReelService().getReels(),
+            tabController: tabController,
           ),
           CoursesPage(horizontalPadding: baseHorizontalPadding),
-          ProfilePage(),
+          KnowledgePage(horizontalPadding: baseHorizontalPadding),
+          const ProfilePage(),
         ],
       ),
     );

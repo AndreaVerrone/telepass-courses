@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:telepass_courses/constants.dart';
+import 'package:telepass_courses/services/auth_handler.dart';
 import 'package:telepass_courses/services/course_service.dart';
 import 'package:telepass_courses/view/components/separator.dart';
 
@@ -73,11 +74,11 @@ class CourseCard extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Consumer<CourseService>(
+                        Consumer<AuthHandler>(
                           builder: (context, service, child) {
                             return IconButton(
                               onPressed: () {
-                                service.toggleSave(course, context);
+                                service.toggleSave(course);
                               },
                               padding: EdgeInsets.zero,
                               visualDensity: const VisualDensity(
@@ -85,7 +86,7 @@ class CourseCard extends StatelessWidget {
                                 vertical: VisualDensity.minimumDensity,
                               ),
                               icon: Icon(
-                                service.isSaved(course)
+                                CourseService().isSaved(course, context)
                                     ? Icons.star_rounded
                                     : Icons.star_outline_rounded,
                                 color: primaryColor,

@@ -45,7 +45,17 @@ class MainApp extends StatelessWidget {
             ),
           ),
         ),
-
+        textButtonTheme: const TextButtonThemeData(
+          style: ButtonStyle(
+            foregroundColor: WidgetStatePropertyAll(primaryColor),
+            backgroundColor: WidgetStateColor.transparent,
+            overlayColor: WidgetStateColor.transparent,
+            splashFactory: NoSplash.splashFactory,
+            textStyle: WidgetStatePropertyAll(
+              TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: ButtonStyle(
             surfaceTintColor: const WidgetStatePropertyAll(Colors.transparent),
