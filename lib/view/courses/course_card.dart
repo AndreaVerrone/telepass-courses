@@ -67,7 +67,10 @@ class CourseCard extends StatelessWidget {
                           ),
                           child: Text(
                             course.type.name,
-                            style: const TextStyle(fontSize: 10),
+                            style: const TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         Consumer<CourseService>(

@@ -35,11 +35,38 @@ class MainApp extends StatelessWidget {
         filledButtonTheme: FilledButtonThemeData(
           style: ButtonStyle(
             backgroundColor: WidgetStateColor.fromMap({
-              WidgetState.disabled: Colors.grey[700]!,
+              WidgetState.disabled: Colors.grey.shade700,
               WidgetState.hovered: primaryColorDark,
               WidgetState.any: primaryColor,
             }),
             foregroundColor: const WidgetStatePropertyAll(Colors.white),
+            textStyle: const WidgetStatePropertyAll(
+              TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
+
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: ButtonStyle(
+            surfaceTintColor: const WidgetStatePropertyAll(Colors.transparent),
+            overlayColor: const WidgetStatePropertyAll(Colors.transparent),
+            shadowColor: const WidgetStatePropertyAll(Colors.transparent),
+
+            backgroundColor: WidgetStateColor.fromMap({
+              WidgetState.disabled: Colors.grey.shade200,
+              WidgetState.hovered: primaryColor.withAlpha(60 * 255 ~/ 100),
+              WidgetState.any: Colors.white,
+            }),
+            side: const WidgetStateBorderSide.fromMap({
+              WidgetState.disabled: BorderSide(color: Colors.grey),
+              WidgetState.hovered: BorderSide(color: primaryColor),
+              WidgetState.any: BorderSide(color: Colors.grey),
+            }),
+            foregroundColor: const WidgetStateColor.fromMap({
+              WidgetState.disabled: Colors.grey,
+              WidgetState.hovered: Colors.white,
+              WidgetState.any: Colors.grey,
+            }),
             textStyle: const WidgetStatePropertyAll(
               TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
